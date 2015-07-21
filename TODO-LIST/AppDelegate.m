@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import "SubclassConfigViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"cvxdxhLK9Di6FV5etw4Y96Y126HV9VpGtxSqCfX5"
+                  clientKey:@"1oWPmwlm4eQPZuFYc7wrkmHnP2x5TGSZFoNZ84IN"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    //default ACL
+    PFACL *defaultACL = [PFACL ACL];
+    //[defaultACL setPublicReadAccess:YES];
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    
+    SubclassConfigViewController *VC = [[SubclassConfigViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:VC];
+    nav.navigationBar.barStyle = UIBarStyleDefault;
+    //nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    nav.navigationBar.translucent = NO;
+    //nav.navigationBar.backgroundColor = [UIColor colorWithRed:0.45 green:0.3 blue:0.25 alpha:0.5];
+    //[nav.navigationBar setTintColor:[UIColor redColor]];
+    [nav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.65 green:0.25 blue:0.1 alpha:1.0], NSForegroundColorAttributeName, [UIFont fontWithName:@"Zapfino" size:25], NSFontAttributeName, nil]];
+    // Navigation bar appearance (background and title)
+    
+    [nav.navigationBar setBarTintColor:[UIColor darkGrayColor]];
+    nav.navigationBar.tintColor = [UIColor whiteColor];
+    
+    self.window.rootViewController = nav;
+    self.window.backgroundColor = [UIColor clearColor];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
